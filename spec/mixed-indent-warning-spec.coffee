@@ -43,11 +43,11 @@ describe "IndentChecker", ->
   describe ".getLinesWithLessCommonType()", ->
     it "returns an array of line numbers with the less-common indentation type from the input", ->
       input = "  foobar1\n  foobar2\n\tfoobar3\n  foobar4"
-      expect( IndentChecker.getLinesWithLessCommonType(input) ).toBe([3])
+      expect( IndentChecker.getLinesWithLessCommonType(input) ).toEqual([3])
 
     it "returns an empty array if the input is entirely one type", ->
       input = "  foobar1\n  foobar2\n  foobar3\n  foobar4"
-      expect( IndentChecker.getLinesWithLessCommonType(input) ).toBe([])
+      expect( IndentChecker.getLinesWithLessCommonType(input) ).toEqual([])
 
 
 describe "MixedIndentWarning", ->
