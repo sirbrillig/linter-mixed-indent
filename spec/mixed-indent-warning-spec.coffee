@@ -1,4 +1,5 @@
 MixedIndentWarning = require '../lib/mixed-indent-warning'
+MixedIndentWarningView = require '../lib/mixed-indent-warning-view'
 
 IndentChecker = require '../lib/indent-checker'
 
@@ -57,14 +58,21 @@ describe "MixedIndentWarning", ->
     workspaceElement = atom.views.getView(atom.workspace)
     activationPromise = atom.packages.activatePackage('mixed-indent-warning')
 
+  describe "when the mixed-indent-warning:file event is triggered", ->
+    it "shows a decoration if there are two types of indentation in the file", ->
+
+      waitsForPromise ->
+        atom.workspace.open('./fixtures/more-spaces.txt').then (editor) ->
+          atom.commands.dispatch workspaceElement, 'mixed-indent-warning:file'
+          warningLine = workspaceElement.querySelector('.mixed-indent-incorrect')
+          expect(warningLine).toExist()
+
+    xit "does not show a decoration if all indentation in the file is the same"
+
+    xit "shows a decoration next to lines with the less common indentation"
+
   describe "when the mixed-indent-warning:toggle event is triggered", ->
-    it "shows a warning if there are two types of indentation in the file"
-
-    it "does not show a warning if all indentation in the file is the same"
-
-    it "shows a mark next to lines with the less common indentation"
-
-    it "hides and shows the modal panel", ->
+    xit "hides and shows the modal panel", ->
       # Before the activation event the view is not on the DOM, and no panel
       # has been created
       expect(workspaceElement.querySelector('.mixed-indent-warning')).not.toExist()
@@ -87,7 +95,7 @@ describe "MixedIndentWarning", ->
         atom.commands.dispatch workspaceElement, 'mixed-indent-warning:toggle'
         expect(mixedIndentWarningPanel.isVisible()).toBe false
 
-    it "hides and shows the view", ->
+    xit "hides and shows the view", ->
       # This test shows you an integration test testing at the view level.
 
       # Attaching the workspaceElement to the DOM is required to allow the

@@ -2,6 +2,7 @@ MixedIndentWarningView = require './mixed-indent-warning-view'
 {CompositeDisposable} = require 'atom'
 
 module.exports = MixedIndentWarning =
+  editor: null
   mixedIndentWarningView: null
   modalPanel: null
   subscriptions: null
@@ -15,6 +16,8 @@ module.exports = MixedIndentWarning =
 
     # Register command that toggles this view
     @subscriptions.add atom.commands.add 'atom-workspace', 'mixed-indent-warning:toggle': => @toggle()
+
+    @subscriptions.add atom.commands.add 'atom-workspace', 'mixed-indent-warning:file': => @file()
 
   deactivate: ->
     @modalPanel.destroy()
@@ -31,3 +34,7 @@ module.exports = MixedIndentWarning =
       @modalPanel.hide()
     else
       @modalPanel.show()
+
+  file: ->
+    console.log 'Scanning the file...'
+    true
