@@ -67,7 +67,12 @@ describe "MixedIndentWarning", ->
           warningLine = workspaceElement.querySelector('.mixed-indent-incorrect')
           expect(warningLine).toExist()
 
-    xit "does not show a decoration if all indentation in the file is the same"
+    it "does not show a decoration if all indentation in the file is the same", ->
+      waitsForPromise ->
+        atom.workspace.open('./fixtures/equal-tabs-spaces.txt').then (editor) ->
+          atom.commands.dispatch workspaceElement, 'mixed-indent-warning:file'
+          warningLine = workspaceElement.querySelector('.mixed-indent-incorrect')
+          expect(warningLine).not.toExist()
 
     xit "shows a decoration next to lines with the less common indentation"
 
