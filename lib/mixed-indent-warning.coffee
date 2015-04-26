@@ -1,4 +1,5 @@
 MixedIndentWarningView = require './mixed-indent-warning-view'
+IndentChecker = require '../lib/indent-checker'
 {CompositeDisposable} = require 'atom'
 
 module.exports = MixedIndentWarning =
@@ -17,7 +18,7 @@ module.exports = MixedIndentWarning =
     # Register command that toggles this view
     @subscriptions.add atom.commands.add 'atom-workspace', 'mixed-indent-warning:toggle': => @toggle()
 
-    @subscriptions.add atom.commands.add 'atom-workspace', 'mixed-indent-warning:file': => @file()
+    @subscriptions.add atom.commands.add 'atom-workspace', 'mixed-indent-warning:file': => @scanFile()
 
   deactivate: ->
     @modalPanel.destroy()
@@ -35,6 +36,12 @@ module.exports = MixedIndentWarning =
     else
       @modalPanel.show()
 
-  file: ->
-    console.log 'Scanning the file...'
-    true
+  scanFile: ->
+    atom.workspace.observeTextEditors (editor) ->
+      text = editor.getText()
+      linesToDecorate = IndentChecker.getLinesWithLessCommonType(text)
+      linesToDecorate.forEach (row) ->
+        row = parseInt(row, 10) - 1
+        marker = editor.markBufferRange([[row, 0], [row, Infinity]], invalidate: 'never')
+        console.log('marker created', marker, row)
+        editor.decorateMarker(marker, type: 'line', class: "mixed-indent-incorrect")
