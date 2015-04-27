@@ -9,9 +9,6 @@ module.exports = MixedIndentWarning =
   subscriptions: null
 
   activate: (state) ->
-    @mixedIndentWarningView = new MixedIndentWarningView(state.mixedIndentWarningViewState)
-    @modalPanel = atom.workspace.addModalPanel(item: @mixedIndentWarningView.getElement(), visible: false)
-
     # Events subscribed to in atom's system can be easily cleaned up with a CompositeDisposable
     @subscriptions = new CompositeDisposable
 
@@ -21,20 +18,10 @@ module.exports = MixedIndentWarning =
     @subscriptions.add atom.commands.add 'atom-workspace', 'mixed-indent-warning:file': => @scanFile()
 
   deactivate: ->
-    @modalPanel.destroy()
     @subscriptions.dispose()
-    @mixedIndentWarningView.destroy()
-
-  serialize: ->
-    mixedIndentWarningViewState: @mixedIndentWarningView.serialize()
 
   toggle: ->
     console.log 'MixedIndentWarning was toggled!'
-
-    if @modalPanel.isVisible()
-      @modalPanel.hide()
-    else
-      @modalPanel.show()
 
   scanFile: ->
     atom.workspace.observeTextEditors (editor) ->
@@ -43,5 +30,5 @@ module.exports = MixedIndentWarning =
       linesToDecorate.forEach (row) ->
         row = parseInt(row, 10) - 1
         marker = editor.markBufferRange([[row, 0], [row, Infinity]], invalidate: 'never')
-        console.log('marker created', marker, row)
+        marker.setProperties({MixedIndent: 'mixed-indent-incorrect'})
         editor.decorateMarker(marker, type: 'line', class: "mixed-indent-incorrect")
