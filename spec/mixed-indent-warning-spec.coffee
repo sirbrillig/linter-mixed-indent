@@ -50,6 +50,10 @@ describe "IndentChecker", ->
       input = "  foobar1\n  foobar2\n  foobar3\n  foobar4"
       expect( IndentChecker.getLinesWithLessCommonType(input) ).toEqual([])
 
+    it "returns an empty array if the input indentation types are equal", ->
+      input = "  foobar1\n  foobar2\n\tfoobar3\n\tfoobar4"
+      expect( IndentChecker.getLinesWithLessCommonType(input) ).toEqual([])
+
 
 describe "MixedIndentWarning", ->
   [workspaceElement, activationPromise] = []
@@ -58,9 +62,16 @@ describe "MixedIndentWarning", ->
   beforeEach ->
     activationPromise = atom.packages.activatePackage('mixed-indent-warning')
 
+  describe "before any mixed-indent-warning command is triggered", ->
+    it "does not show a decoration if there are two types of indentation in the file", ->
+      waitsForPromise ->
+        atom.workspace.open(path.join(fixturePath, 'more-spaces.txt')).then (editor) ->
+          expect(editor.getText().length).toBeGreaterThan 1
+          workspaceElement = atom.views.getView(atom.workspace)
+          expect( editor.findMarkers({MixedIndent: 'mixed-indent-incorrect'}).length ).not.toBeGreaterThan 1
+
   describe "when the mixed-indent-warning:file event is triggered", ->
     it "shows a decoration if there are two types of indentation in the file", ->
-
       waitsForPromise ->
         atom.workspace.open(path.join(fixturePath, 'more-spaces.txt')).then (editor) ->
           expect(editor.getText().length).toBeGreaterThan 1
@@ -68,15 +79,24 @@ describe "MixedIndentWarning", ->
           atom.commands.dispatch workspaceElement, 'mixed-indent-warning:file'
           expect( editor.findMarkers({MixedIndent: 'mixed-indent-incorrect'}).length ).toBeGreaterThan 1
 
-    xit "does not show a decoration if all indentation in the file is the same", ->
+    it "does not show a decoration if all indentation in the file is the same", ->
       waitsForPromise ->
-        atom.workspace.open('./fixtures/equal-tabs-spaces.txt').then (editor) ->
+        atom.workspace.open(path.join(fixturePath, 'equal-tabs-spaces.txt')).then (editor) ->
+          expect(editor.getText().length).toBeGreaterThan 1
           workspaceElement = atom.views.getView(atom.workspace)
           atom.commands.dispatch workspaceElement, 'mixed-indent-warning:file'
-          warningLine = workspaceElement.querySelector('.mixed-indent-incorrect')
-          expect(warningLine).not.toExist()
+          expect( editor.findMarkers({MixedIndent: 'mixed-indent-incorrect'}).length ).not.toBeGreaterThan 1
 
-    xit "shows a decoration next to lines with the less common indentation"
+    it "shows a decoration next to lines with the less common indentation", ->
+      waitsForPromise ->
+        atom.workspace.open(path.join(fixturePath, 'more-spaces.txt')).then (editor) ->
+          expect(editor.getText().length).toBeGreaterThan 1
+          workspaceElement = atom.views.getView(atom.workspace)
+          atom.commands.dispatch workspaceElement, 'mixed-indent-warning:file'
+          rows = editor.findMarkers({MixedIndent: 'mixed-indent-incorrect'}).reduce (rows, marker) ->
+            rows = rows.concat( marker.getBufferRange().getRows() )
+          , []
+          expect(rows).toEqual([4, 5])
 
   describe "when the mixed-indent-warning:toggle event is triggered", ->
     xit "hides and shows the modal panel", ->
