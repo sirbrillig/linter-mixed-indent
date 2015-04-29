@@ -37,9 +37,9 @@ describe "IndentChecker", ->
       input = "\tfoobar1\n\tfoobar2\n  foobar3\n\tfoobar4"
       expect( IndentChecker.getMostCommonIndentType(input) ).toBe( 'tabs' )
 
-    it "returns 'spaces' when the input contains equal tab and space indentation", ->
+    it "returns '' when the input contains equal tab and space indentation", ->
       input = "\tfoobar1\n  foobar2\n\tfoobar3\n  foobar4"
-      expect( IndentChecker.getMostCommonIndentType(input) ).toBe( 'spaces' )
+      expect( IndentChecker.getMostCommonIndentType(input) ).toBe( '' )
 
   describe ".getLinesWithLessCommonType()", ->
     it "returns an array of line numbers with the less-common indentation type from the input", ->
