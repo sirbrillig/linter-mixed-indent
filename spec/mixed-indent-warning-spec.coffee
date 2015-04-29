@@ -77,7 +77,7 @@ describe "MixedIndentWarning", ->
           expect(editor.getText().length).toBeGreaterThan 1
           workspaceElement = atom.views.getView(atom.workspace)
           atom.commands.dispatch workspaceElement, 'mixed-indent-warning:file'
-          expect( editor.findMarkers({MixedIndent: 'mixed-indent-incorrect'}).length ).toBeGreaterThan 1
+          expect( editor.findMarkers({MixedIndent: 'mixed-indent-incorrect'}).length ).toEqual 2
 
     it "does not show a decoration if all indentation in the file is the same", ->
       waitsForPromise ->
@@ -85,7 +85,7 @@ describe "MixedIndentWarning", ->
           expect(editor.getText().length).toBeGreaterThan 1
           workspaceElement = atom.views.getView(atom.workspace)
           atom.commands.dispatch workspaceElement, 'mixed-indent-warning:file'
-          expect( editor.findMarkers({MixedIndent: 'mixed-indent-incorrect'}).length ).not.toBeGreaterThan 1
+          expect( editor.findMarkers({MixedIndent: 'mixed-indent-incorrect'}).length ).toEqual 0
 
     it "shows a decoration next to lines with the less common indentation", ->
       waitsForPromise ->
