@@ -31,4 +31,4 @@ module.exports = MixedIndentWarning =
         row = parseInt(row, 10) - 1
         marker = editor.markBufferRange([[row, 0], [row, Infinity]], invalidate: 'never')
         marker.setProperties({MixedIndent: 'mixed-indent-incorrect'})
-        editor.decorateMarker(marker, type: 'line', class: "mixed-indent-incorrect")
+        editor.decorateMarker(marker, type: 'line-number', class: "mixed-indent-incorrect")

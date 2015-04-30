@@ -4,7 +4,13 @@
 // for a full listing of what's available.
 @import "ui-variables";
 
-.mixed-indent-incorrect {
-	background-color: green;
-	color: #fff;
+.editor.editor-colors .gutter .line-number {
+	&.mixed-indent-incorrect {
+		color: #fff;
+		background-color: @background-color-warning;
+	}
+	&.mixed-indent-incorrect.cursor-line {
+		color: #fff;
+		background-color: @background-color-warning;
+	}
 }
