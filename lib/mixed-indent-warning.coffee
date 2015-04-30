@@ -29,6 +29,6 @@ module.exports = MixedIndentWarning =
       linesToDecorate = IndentChecker.getLinesWithLessCommonType(text)
       linesToDecorate.forEach (row) ->
         row = parseInt(row, 10) - 1
-        marker = editor.markBufferRange([[row, 0], [row, Infinity]], invalidate: 'never')
+        marker = editor.markBufferRange([[row, 0], [row, Infinity]], invalidate: 'inside')
         marker.setProperties({MixedIndent: 'mixed-indent-incorrect'})
         editor.decorateMarker(marker, type: 'line-number', class: "mixed-indent-incorrect")
