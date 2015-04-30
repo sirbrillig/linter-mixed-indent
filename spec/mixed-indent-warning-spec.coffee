@@ -94,6 +94,7 @@ describe "MixedIndentWarning", ->
           expect(editor.getText().length).toBeGreaterThan 1
           newText = "  foobar1\n  foobar2\n\tfoobar3\n\tfoobar4\n"
           editor.setText(newText)
+          advanceClock(500)
           expect( editor.findMarkers({MixedIndent: 'mixed-indent-incorrect'}).length ).toEqual 0
 
   describe "when the open file is changed to make indentation types unequal", ->
@@ -103,6 +104,7 @@ describe "MixedIndentWarning", ->
           expect(editor.getText().length).toBeGreaterThan 1
           newText = "\tfoobar1\n\tfoobar2\n  foobar3\n\tfoobar4\n"
           editor.setText(newText)
+          advanceClock(500)
           expect( editor.findMarkers({MixedIndent: 'mixed-indent-incorrect'}).length ).toEqual 1
 
 
