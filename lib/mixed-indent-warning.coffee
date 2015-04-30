@@ -18,7 +18,7 @@ module.exports = MixedIndentWarning =
     # Register command that toggles this view
     @subscriptions.add atom.commands.add 'atom-workspace', 'mixed-indent-warning:toggle': => @toggle()
 
-    #@subscriptions.add atom.commands.add 'atom-workspace', 'mixed-indent-warning:file': => @beginScans()
+    @subscriptions.add atom.commands.add 'atom-workspace', 'mixed-indent-warning:file': => @scanActiveFile()
 
   deactivate: ->
     @subscriptions.dispose()
@@ -27,14 +27,22 @@ module.exports = MixedIndentWarning =
     console.log 'MixedIndentWarning was toggled!'
 
   beginScans: ->
-    atom.workspace.observeTextEditors (editor) =>
-      @scanFile(editor)
-      @subscriptions.add editor.onDidStopChanging =>
-        @scanFile(editor)
+    atom.config.observe 'mixed-indent-warning.liveUpdate', (liveUpdate) =>
+      if liveUpdate == 'enabled'
+        atom.workspace.observeTextEditors (editor) =>
+          @scanFile(editor)
+          @subscriptions.add editor.onDidStopChanging =>
+            @scanFile(editor)
+      else
+        @subscriptions.dispose()
+
+  scanActiveFile: ->
+    @scanFile(atom.workspace.getActiveTextEditor())
 
   clearMarkers: ->
     @markers.map (marker) ->
       marker.destroy()
+    @markers = []
 
   scanFile: (editor) ->
     @clearMarkers()
