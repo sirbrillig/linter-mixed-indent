@@ -7,28 +7,30 @@ module.exports = MixedIndentWarning =
   mixedIndentWarningView: null
   modalPanel: null
   subscriptions: null
+  commandSubscriptions: null
   markers: []
 
   config:
     liveUpdate:
       type: 'boolean'
-      default: false
+      default: true
       title: 'Live Update'
       description: 'Scan files all the time.'
 
   activate: (state) ->
-    # Events subscribed to in atom's system can be easily cleaned up with a CompositeDisposable
     @subscriptions = new CompositeDisposable
+    @commandSubscriptions = new CompositeDisposable
 
     @beginScans()
 
     # Register command that toggles this view
-    @subscriptions.add atom.commands.add 'atom-workspace', 'mixed-indent-warning:toggle': => @toggle()
+    @commandSubscriptions.add atom.commands.add 'atom-workspace', 'mixed-indent-warning:toggle': => @toggle()
 
-    @subscriptions.add atom.commands.add 'atom-workspace', 'mixed-indent-warning:file': => @scanActiveFile()
+    @commandSubscriptions.add atom.commands.add 'atom-workspace', 'mixed-indent-warning:file': => @scanActiveFile()
 
   deactivate: ->
     @subscriptions.dispose()
+    @commandSubscriptions.dispose()
 
   toggle: ->
     console.log 'MixedIndentWarning was toggled!'
