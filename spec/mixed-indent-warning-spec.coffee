@@ -67,7 +67,7 @@ describe "MixedIndentWarning", ->
 
   describe "when live updating is enabled", ->
     beforeEach ->
-      atom.config.set('mixed-indent-warning.liveUpdate', 'enabled')
+      atom.config.set('mixed-indent-warning.liveUpdate', 'true')
 
     describe "when the file is opened", ->
       it "shows a decoration if there are two types of indentation in the file", ->
@@ -113,7 +113,7 @@ describe "MixedIndentWarning", ->
 
   describe "when live updating is disabled", ->
     beforeEach ->
-      atom.config.set('mixed-indent-warning.liveUpdate', 'disabled')
+      atom.config.set('mixed-indent-warning.liveUpdate', 'false')
 
     describe "when the mixed-indent-warning:file command is not triggered", ->
       it "shows no decorations if there are two types of indentation in the file", ->

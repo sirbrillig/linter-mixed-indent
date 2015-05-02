@@ -9,6 +9,13 @@ module.exports = MixedIndentWarning =
   subscriptions: null
   markers: []
 
+  config:
+    liveUpdate:
+      type: 'boolean'
+      default: false
+      title: 'Live Update'
+      description: 'Scan files all the time.'
+
   activate: (state) ->
     # Events subscribed to in atom's system can be easily cleaned up with a CompositeDisposable
     @subscriptions = new CompositeDisposable
@@ -28,8 +35,8 @@ module.exports = MixedIndentWarning =
 
   beginScans: ->
     atom.config.observe 'mixed-indent-warning.liveUpdate', (liveUpdate) =>
-      if liveUpdate == 'enabled'
-        atom.workspace.observeTextEditors (editor) =>
+      if liveUpdate
+        @subscriptions.add atom.workspace.observeTextEditors (editor) =>
           @scanFile(editor)
           @subscriptions.add editor.onDidStopChanging =>
             @scanFile(editor)
