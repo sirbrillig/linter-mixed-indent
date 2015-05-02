@@ -63,6 +63,9 @@ describe "MixedIndentWarning", ->
   beforeEach ->
     activationPromise = atom.packages.activatePackage('mixed-indent-warning')
 
+  afterEach ->
+    atom.config.unset('mixed-indent-warning.liveUpdate')
+
   describe "when live updating is enabled", ->
     beforeEach ->
       atom.config.set('mixed-indent-warning.liveUpdate', 'true')
