@@ -5,7 +5,6 @@ module.exports = MixedIndentWarning =
   editor: null
   subscriptions: null
   commandSubscriptions: null
-  markers: []
 
   config:
     liveUpdate:
@@ -37,18 +36,16 @@ module.exports = MixedIndentWarning =
   scanActiveFile: ->
     @scanFile(atom.workspace.getActiveTextEditor())
 
-  clearMarkers: ->
-    @markers.map (marker) ->
+  clearMarkers: (editor) ->
+    editor.findMarkers({MixedIndent: 'mixed-indent-incorrect'}).map (marker) ->
       marker.destroy()
-    @markers = []
 
   scanFile: (editor) ->
-    @clearMarkers()
+    @clearMarkers(editor)
     text = editor.getText()
     linesToDecorate = IndentChecker.getLinesWithLessCommonType(text)
     linesToDecorate.forEach (row) =>
       row = parseInt(row, 10) - 1
       marker = editor.markBufferRange([[row, 0], [row, Infinity]], invalidate: 'inside')
       marker.setProperties({MixedIndent: 'mixed-indent-incorrect'})
-      @markers.push marker
       editor.decorateMarker(marker, type: 'line-number', class: "mixed-indent-incorrect")
