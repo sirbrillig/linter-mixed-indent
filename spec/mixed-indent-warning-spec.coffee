@@ -116,33 +116,33 @@ describe "MixedIndentWarning", ->
     beforeEach ->
       atom.config.set('mixed-indent-warning.liveUpdate', 'false')
 
-    describe "when the mixed-indent-warning:file command is not triggered", ->
+    describe "when the mixed-indent-warning:scan command is not triggered", ->
       it "shows no decorations if there are two types of indentation in the file", ->
         waitsForPromise ->
           atom.workspace.open(path.join(fixturePath, 'more-spaces.txt')).then (editor) ->
             expect(editor.getText().length).toBeGreaterThan 1
             expect( editor.findMarkers({MixedIndent: 'mixed-indent-incorrect'}).length ).toEqual 0
 
-    describe "when the mixed-indent-warning:file command is triggered", ->
+    describe "when the mixed-indent-warning:scan command is triggered", ->
       it "shows a decoration if there are two types of indentation in the file", ->
         waitsForPromise ->
           atom.workspace.open(path.join(fixturePath, 'more-spaces.txt')).then (editor) ->
             expect(editor.getText().length).toBeGreaterThan 1
-            atom.commands.dispatch atom.views.getView(atom.workspace), 'mixed-indent-warning:file'
+            atom.commands.dispatch atom.views.getView(atom.workspace), 'mixed-indent-warning:scan'
             expect( editor.findMarkers({MixedIndent: 'mixed-indent-incorrect'}).length ).toEqual 2
 
       it "does not show a decoration if all indentation in the file is the same", ->
         waitsForPromise ->
           atom.workspace.open(path.join(fixturePath, 'equal-tabs-spaces.txt')).then (editor) ->
             expect(editor.getText().length).toBeGreaterThan 1
-            atom.commands.dispatch atom.views.getView(atom.workspace), 'mixed-indent-warning:file'
+            atom.commands.dispatch atom.views.getView(atom.workspace), 'mixed-indent-warning:scan'
             expect( editor.findMarkers({MixedIndent: 'mixed-indent-incorrect'}).length ).toEqual 0
 
       it "shows a decoration next to lines with the less common indentation", ->
         waitsForPromise ->
           atom.workspace.open(path.join(fixturePath, 'more-spaces.txt')).then (editor) ->
             expect(editor.getText().length).toBeGreaterThan 1
-            atom.commands.dispatch atom.views.getView(atom.workspace), 'mixed-indent-warning:file'
+            atom.commands.dispatch atom.views.getView(atom.workspace), 'mixed-indent-warning:scan'
             rows = editor.findMarkers({MixedIndent: 'mixed-indent-incorrect'}).reduce (rows, marker) ->
               rows = rows.concat( marker.getBufferRange().getRows() )
             , []

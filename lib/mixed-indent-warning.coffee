@@ -17,7 +17,7 @@ module.exports = MixedIndentWarning =
     @subscriptions = new CompositeDisposable
     @commandSubscriptions = new CompositeDisposable
     @beginScans()
-    @commandSubscriptions.add atom.commands.add 'atom-workspace', 'mixed-indent-warning:file': => @scanActiveFile()
+    @commandSubscriptions.add atom.commands.add 'atom-workspace', 'mixed-indent-warning:scan': => @scanActiveFile()
 
   deactivate: ->
     @subscriptions.dispose()

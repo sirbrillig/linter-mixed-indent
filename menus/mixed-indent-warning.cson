@@ -3,7 +3,7 @@
   'atom-text-editor': [
     {
       'label': 'Scan file'
-      'command': 'mixed-indent-warning:file'
+      'command': 'mixed-indent-warning:scan'
     }
   ]
 'menu': [
@@ -14,7 +14,7 @@
       'submenu': [
         {
           'label': 'Scan file'
-          'command': 'mixed-indent-warning:file'
+          'command': 'mixed-indent-warning:scan'
         }
       ]
     ]
