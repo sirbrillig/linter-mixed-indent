@@ -4,10 +4,6 @@
     {
       'label': 'Scan file'
       'command': 'mixed-indent-warning:file'
-    },
-    {
-      'label': 'Toggle mixed-indent-warning'
-      'command': 'mixed-indent-warning:toggle'
     }
   ]
 'menu': [
@@ -17,12 +13,8 @@
       'label': 'mixed-indent-warning'
       'submenu': [
         {
-          'label': 'File'
+          'label': 'Scan file'
           'command': 'mixed-indent-warning:file'
-        },
-        {
-          'label': 'Toggle'
-          'command': 'mixed-indent-warning:toggle'
         }
       ]
     ]

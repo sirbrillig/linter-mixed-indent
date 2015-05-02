@@ -1,11 +1,8 @@
-MixedIndentWarningView = require './mixed-indent-warning-view'
 IndentChecker = require '../lib/indent-checker'
 {CompositeDisposable} = require 'atom'
 
 module.exports = MixedIndentWarning =
   editor: null
-  mixedIndentWarningView: null
-  modalPanel: null
   subscriptions: null
   commandSubscriptions: null
   markers: []
@@ -20,20 +17,12 @@ module.exports = MixedIndentWarning =
   activate: (state) ->
     @subscriptions = new CompositeDisposable
     @commandSubscriptions = new CompositeDisposable
-
     @beginScans()
-
-    # Register command that toggles this view
-    @commandSubscriptions.add atom.commands.add 'atom-workspace', 'mixed-indent-warning:toggle': => @toggle()
-
     @commandSubscriptions.add atom.commands.add 'atom-workspace', 'mixed-indent-warning:file': => @scanActiveFile()
 
   deactivate: ->
     @subscriptions.dispose()
     @commandSubscriptions.dispose()
-
-  toggle: ->
-    console.log 'MixedIndentWarning was toggled!'
 
   beginScans: ->
     atom.config.observe 'mixed-indent-warning.liveUpdate', (liveUpdate) =>
