@@ -1,5 +1,7 @@
-# mixed-indent-warning package
+# Mixed Indent Warning
 
-A short description of your package.
+An [Atom](https://atom.io/) plugin to mark lines that have differing indentation (spaces vs. tabs).
 
-![A screenshot of your package](https://f.cloud.github.com/assets/69169/2290250/c35d867a-a017-11e3-86be-cd7c5bf3ff9b.gif)
+When a file contains both types of indentation, lines using the less-commonly used indentation will be marked in the editor.
+
+![Example](warning-lines-example.png)
