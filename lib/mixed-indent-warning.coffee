@@ -7,7 +7,7 @@ module.exports = MixedIndentWarning =
   commandSubscriptions: null
 
   config:
-    liveUpdate:
+    alwaysScan:
       type: 'boolean'
       default: true
       title: 'Live Update'
@@ -24,8 +24,8 @@ module.exports = MixedIndentWarning =
     @commandSubscriptions.dispose()
 
   beginScans: ->
-    atom.config.observe 'mixed-indent-warning.liveUpdate', (liveUpdate) =>
-      if liveUpdate
+    atom.config.observe 'mixed-indent-warning.alwaysScan', (alwaysScan) =>
+      if alwaysScan
         @subscriptions.add atom.workspace.observeTextEditors (editor) =>
           @scanFile(editor)
           @subscriptions.add editor.onDidStopChanging =>

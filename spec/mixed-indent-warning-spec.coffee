@@ -64,11 +64,11 @@ describe "MixedIndentWarning", ->
     activationPromise = atom.packages.activatePackage('mixed-indent-warning')
 
   afterEach ->
-    atom.config.unset('mixed-indent-warning.liveUpdate')
+    atom.config.unset('mixed-indent-warning.alwaysScan')
 
   describe "when live updating is enabled", ->
     beforeEach ->
-      atom.config.set('mixed-indent-warning.liveUpdate', 'true')
+      atom.config.set('mixed-indent-warning.alwaysScan', 'true')
 
     describe "when the file is opened", ->
       it "shows a decoration if there are two types of indentation in the file", ->
@@ -114,7 +114,7 @@ describe "MixedIndentWarning", ->
 
   describe "when live updating is disabled", ->
     beforeEach ->
-      atom.config.set('mixed-indent-warning.liveUpdate', 'false')
+      atom.config.set('mixed-indent-warning.alwaysScan', 'false')
 
     describe "when the mixed-indent-warning:scan command is not triggered", ->
       it "shows no decorations if there are two types of indentation in the file", ->
