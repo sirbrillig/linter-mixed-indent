@@ -8,6 +8,11 @@
 	&.mixed-indent-incorrect {
 		color: #fff;
 		background-color: @background-color-warning;
+		& .icon-right::before {
+			content: '\f0a9';
+			visibility: visible;
+			color: @text-color-selected;
+		}
 	}
 	&.mixed-indent-incorrect.cursor-line {
 		color: #fff;
