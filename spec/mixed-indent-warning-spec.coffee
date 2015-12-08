@@ -1,4 +1,5 @@
 MixedIndentWarning = require '../lib/mixed-indent-warning'
+path = require 'path'
 
 # Use the command `window:run-package-specs` (cmd-alt-ctrl-p) to run specs.
 #
