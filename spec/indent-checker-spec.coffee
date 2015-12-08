@@ -16,6 +16,15 @@ describe "IndentChecker", ->
     it "returns 'none' when the input starts with no indentation", ->
       expect( IndentChecker.getLineType( "foo" ) ).toBe( 'none' )
 
+    it "returns 'none' when the input is empty", ->
+      expect( IndentChecker.getLineType( "\n" ) ).toBe( 'none' )
+
+    it "returns 'none' when the input starts a comment block", ->
+      expect( IndentChecker.getLineType( "/**" ) ).toBe( 'none' )
+
+    it "returns 'none' when the input ends a comment block", ->
+      expect( IndentChecker.getLineType( " */" ) ).toBe( 'none' )
+
   describe ".getLinesByType()", ->
     it "returns an object with keys for each type found", ->
       input = "  foobar1\n  foobar2\n\tfoobar3\n  foobar4"
@@ -23,7 +32,7 @@ describe "IndentChecker", ->
       expect( Object.keys( types ).length ).toBe( 2 )
 
     it "returns a list of lines for each type", ->
-      input = "  foobar1\n  foobar2\n\tfoobar3\n  foobar4"
+      input = "  foobar1\n  foobar2\n\n\tfoobar3\n  foobar4"
       types = IndentChecker.getLinesByType( input )
       expect( types[ 'spaces' ].length ).toBe( 3 )
       expect( types[ 'tabs' ].length ).toBe( 1 )
@@ -53,3 +62,7 @@ describe "IndentChecker", ->
     it "returns an empty array if the input indentation types are equal", ->
       input = "  foobar1\n  foobar2\n\tfoobar3\n\tfoobar4\n"
       expect( IndentChecker.getLinesWithLessCommonType(input) ).toEqual([])
+
+    it "ignores comment block indentations", ->
+      input = "\tfoobar1\n/** foobar2\n * foobar3\n * foobar4\n */\n foobar6\n\tfoobar7"
+      expect( IndentChecker.getLinesWithLessCommonType(input) ).toEqual([6])
