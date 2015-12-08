@@ -16,6 +16,9 @@ describe "IndentChecker", ->
     it "returns 'none' when the input starts with no indentation", ->
       expect( IndentChecker.getLineType( "foo" ) ).toBe( 'none' )
 
+    it "returns 'none' when the input is empty", ->
+      expect( IndentChecker.getLineType( "\n" ) ).toBe( 'none' )
+
   describe ".getLinesByType()", ->
     it "returns an object with keys for each type found", ->
       input = "  foobar1\n  foobar2\n\tfoobar3\n  foobar4"
@@ -23,7 +26,7 @@ describe "IndentChecker", ->
       expect( Object.keys( types ).length ).toBe( 2 )
 
     it "returns a list of lines for each type", ->
-      input = "  foobar1\n  foobar2\n\tfoobar3\n  foobar4"
+      input = "  foobar1\n  foobar2\n\n\tfoobar3\n  foobar4"
       types = IndentChecker.getLinesByType( input )
       expect( types[ 'spaces' ].length ).toBe( 3 )
       expect( types[ 'tabs' ].length ).toBe( 1 )
