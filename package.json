@@ -1,7 +1,7 @@
 {
   "name": "linter-mixed-indent",
   "main": "./lib/main",
-  "version": "0.3.0",
+  "version": "1.0.0",
   "description": "An Atom editor linter plugin to mark lines that have differing indentation.",
   "repository": "https://github.com/sirbrillig/linter-mixed-indent",
   "license": "MIT",
