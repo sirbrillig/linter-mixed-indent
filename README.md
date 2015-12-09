@@ -4,6 +4,8 @@ An [Atom](https://atom.io/) plugin to mark lines that have differing indentation
 
 When a file contains both types of indentation, lines using the less-commonly used indentation will be marked in the editor.
 
+Uses [mixedindentlint](https://github.com/sirbrillig/mixedindentlint) for linting.
+
 ![Example](https://cldup.com/5Ap9gFqvCH.png)
 
 # Installation
