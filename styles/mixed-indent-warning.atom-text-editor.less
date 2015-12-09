@@ -2,20 +2,3 @@
 //
 // See https://github.com/atom/atom-dark-ui/blob/master/styles/ui-variables.less
 // for a full listing of what's available.
-@import "ui-variables";
-
-:host(:host) .gutter .line-number {
-	&.mixed-indent-incorrect {
-		color: #fff;
-		background-color: @background-color-warning;
-		& .icon-right::before {
-			content: '\f0a9';
-			visibility: visible;
-			color: @text-color-selected;
-		}
-	}
-	&.mixed-indent-incorrect.cursor-line {
-		color: #fff;
-		background-color: @background-color-warning;
-	}
-}
