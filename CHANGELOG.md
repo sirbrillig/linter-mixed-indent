@@ -1,3 +1,6 @@
+## 1.0.0
+* Convert to a Linter plugin.
+
 ## 0.3.0
 * Ignore blank lines; previously they were treated as spaces.
 * Ignore comment blocks; Ignore spaces starting lines within multi-line `/* */` comment blocks.
