@@ -1,9 +1,9 @@
 {
-  "name": "mixed-indent-warning",
+  "name": "linter-mixed-indent",
   "main": "./lib/main",
   "version": "0.3.0",
   "description": "An Atom editor linter plugin to mark lines that have differing indentation.",
-  "repository": "https://github.com/sirbrillig/mixed-indent-warning",
+  "repository": "https://github.com/sirbrillig/linter-mixed-indent",
   "license": "MIT",
   "engines": {
     "atom": ">=0.174.0 <2.0.0"

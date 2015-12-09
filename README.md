@@ -1,4 +1,4 @@
-# Mixed Indent Warning
+# linter-mixed-indent
 
 An [Atom](https://atom.io/) plugin to mark lines that have differing indentation (spaces vs. tabs).
 
@@ -14,7 +14,7 @@ The [Linter](https://atom.io/packages/linter) package must be installed in order
 
 ### Plugin installation
 ```sh
-$ apm install mixed-indent-warning
+$ apm install linter-mixed-indent
 ```
 
 # Contributing
