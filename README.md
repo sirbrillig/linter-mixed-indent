@@ -19,6 +19,18 @@ The [Linter](https://atom.io/packages/linter) package must be installed in order
 $ apm install linter-mixed-indent
 ```
 
+# Settings
+
+There are options available in the settings panel for the plugin inside Atom's preferences.
+
+### ignore comments
+
+If set, ignore comments entirely in code. Otherwise comment indentation will be scanned as well.
+
+### force indentation type
+
+If not set to automatic, always assume indentation should be one type, rather than scanning the file for the most common indentation.
+
 # Contributing
 
 New issues are welcome! Even better, if you would like to contribute enhancements or fixes, please do the following:
