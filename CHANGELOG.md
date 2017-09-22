@@ -1,3 +1,6 @@
+## 1.1.1
+* Remove styles since they are not used.
+
 ## 1.1.0
 * Add settings for ignore comments and force indentation type.
 
