@@ -1,12 +1,12 @@
 {
   "name": "linter-mixed-indent",
   "main": "./lib/main",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "An Atom editor linter plugin to mark lines that have differing indentation.",
   "repository": "https://github.com/sirbrillig/linter-mixed-indent",
   "license": "MIT",
   "engines": {
-    "atom": ">=0.174.0 <2.0.0"
+    "atom": ">=0.13.0 <2.0.0"
   },
   "dependencies": {
     "atom-linter": "^3.4.0",
@@ -27,6 +27,10 @@
     }
   },
   "devDependencies": {
-    "eslint-config-steelbrain": "^2.0.0"
+    "eslint": "^4.7.2",
+    "eslint-config-prettier": "^2.5.0",
+    "eslint-config-steelbrain": "^2.0.0",
+    "eslint-plugin-prettier": "^2.3.1",
+    "prettier": "^1.7.0"
   }
 }
